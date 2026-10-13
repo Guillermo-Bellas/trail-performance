@@ -1,5 +1,32 @@
-const CACHE = 'trail-performance-v7';
-const CORE = ['./','./index.html','./manifest.webmanifest','./icons/icon-180.png','./icons/icon-192.png','./icons/icon-512.png'];
-self.addEventListener('install', event => { event.waitUntil(caches.open(CACHE).then(cache => cache.addAll(CORE)).then(() => self.skipWaiting())); });
-self.addEventListener('activate', event => { event.waitUntil(caches.keys().then(keys => Promise.all(keys.filter(k => k.startsWith('trail-performance-') && k !== CACHE).map(k => caches.delete(k)))).then(() => self.clients.claim())); });
-self.addEventListener('fetch', event => { const req=event.request; if(req.method !== 'GET' || new URL(req.url).origin !== self.location.origin) return; event.respondWith(fetch(req).then(response => { if(response.ok){const copy=response.clone(); caches.open(CACHE).then(c=>c.put(req,copy));} return response; }).catch(()=>caches.match(req).then(cached=>cached || caches.match('./index.html')))); });
+const CACHE = 'trail-performance-v9-nombre';
+const CORE = ['./', './index.html', './manifest.webmanifest'];
+const OPTIONAL = ['./icons/icon-180.png','./icons/icon-192.png','./icons/icon-512.png'];
+self.addEventListener('install', event => {
+  event.waitUntil((async () => {
+    const cache = await caches.open(CACHE);
+    await cache.addAll(CORE);
+    await Promise.all(OPTIONAL.map(url => cache.add(url).catch(() => undefined)));
+    await self.skipWaiting();
+  })());
+});
+self.addEventListener('activate', event => {
+  event.waitUntil((async () => {
+    const keys = await caches.keys();
+    await Promise.all(keys.filter(k => k.startsWith('trail-performance-') && k !== CACHE).map(k => caches.delete(k)));
+    await self.clients.claim();
+  })());
+});
+self.addEventListener('fetch', event => {
+  const req = event.request;
+  if (req.method !== 'GET' || new URL(req.url).origin !== self.location.origin) return;
+  event.respondWith(fetch(req).then(response => {
+    if (response.ok) {
+      const copy = response.clone();
+      caches.open(CACHE).then(c => c.put(req,copy)).catch(() => {});
+    }
+    return response;
+  }).catch(async () => {
+    const cached = await caches.match(req);
+    return cached || (req.mode === 'navigate' ? caches.match('./index.html') : Response.error());
+  }));
+});
