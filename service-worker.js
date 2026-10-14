@@ -1,4 +1,4 @@
-const CACHE = 'trail-performance-v9-nombre';
+const CACHE = 'vamos-con-todo-v10-3-borgona-real-elegante-20261014';
 const CORE = ['./', './index.html', './manifest.webmanifest'];
 const OPTIONAL = ['./icons/icon-180.png','./icons/icon-192.png','./icons/icon-512.png'];
 self.addEventListener('install', event => {
@@ -12,7 +12,7 @@ self.addEventListener('install', event => {
 self.addEventListener('activate', event => {
   event.waitUntil((async () => {
     const keys = await caches.keys();
-    await Promise.all(keys.filter(k => k.startsWith('trail-performance-') && k !== CACHE).map(k => caches.delete(k)));
+    await Promise.all(keys.filter(k => (k.startsWith('trail-performance-') || k.startsWith('vamos-con-todo-')) && k !== CACHE).map(k => caches.delete(k)));
     await self.clients.claim();
   })());
 });
