@@ -2,7 +2,7 @@
   "id": "./",
   "name": "Vamos con Todo",
   "short_name": "Vamos con Todo",
-  "description": "Entrenamiento, nutrición, pesaje, trail y dashboard de progreso. Enlace opcional a ChatGPT. Datos almacenados en tu dispositivo.",
+  "description": "Entrenamiento, nutrición con más de 330 alimentos y porciones habituales, pesaje, trail y seguimiento. Datos locales y consultas a ChatGPT opcionales.",
   "lang": "es",
   "start_url": "./index.html",
   "scope": "./",
