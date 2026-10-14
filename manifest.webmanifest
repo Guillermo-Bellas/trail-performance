@@ -2,7 +2,7 @@
   "id": "./",
   "name": "Vamos con Todo",
   "short_name": "Vamos con Todo",
-  "description": "Entrenamiento, nutrición con más de 330 alimentos y porciones habituales, pesaje, trail y seguimiento. Datos locales y consultas a ChatGPT opcionales.",
+  "description": "Tu centro de mando Hoy, planificación flexible, nutrición, Fitdays, Sports Tracker y entrenador IA. Datos locales.",
   "lang": "es",
   "start_url": "./index.html",
   "scope": "./",
