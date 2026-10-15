@@ -1,4 +1,4 @@
-const CACHE = 'vamos-con-todo-v12-3-sesiones-reales-20261015';
+const CACHE = 'vamos-con-todo-v12-4-fitdays-20261015';
 const CORE = ['./', './index.html', './manifest.webmanifest', './food-catalog.js'];
 const OPTIONAL = ['./icons/icon-180.png','./icons/icon-192.png','./icons/icon-512.png'];
 self.addEventListener('install', event => {
